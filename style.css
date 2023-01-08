@@ -31,3 +31,9 @@ body{
     padding: 2.5px;
     font-weight: bold;
 }
+
+.reset{
+    background-color: rgb(238, 173, 184);;
+    border-radius: 10%;
+    padding: 2.5px;
+}

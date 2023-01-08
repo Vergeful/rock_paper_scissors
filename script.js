@@ -1,4 +1,10 @@
 window.onload = game();
+let playerScore = 0;
+let computerScore = 0;
+
+const rockContainer = document.querySelector('.rock');
+const paperContainer = document.querySelector('.paper');
+const scissorsContainer = document.querySelector('.scissors');
 
 function getComputerChoice(){
     let choices = ["Rock", "Paper", "Scissors"];
@@ -39,9 +45,6 @@ function playRound(playerSelection, computerSelection){
 }
 
 function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-
     const buttons = document.querySelectorAll('button');
 
     buttons.forEach((button) =>{
@@ -63,12 +66,18 @@ function game(){
 
             msgContainer.innerText = roundResult;
 
-            if (computerScore === 5){
-                resultsContainer.innerText = "The computer had beaten you! You are a loser!";
-            } else if (playerScore === 5){
-                resultsContainer.innerText = "You have emerged victorious!";
-            }
-            else{
+            if ((computerScore === 5) || (playerScore ===5)){
+                if (computerScore === 5){
+                    resultsContainer.innerHTML = 'You were defeated! <button class = "reset" onclick="reset()">Click for rematch!</button>';
+                } else if (playerScore === 5){
+                    resultsContainer.innerHTML = 'You were victorious! <button class = "reset" onclick="reset()">Click for rematch!</button>';
+                }
+
+                rockContainer.setAttribute("disabled", 1);
+                paperContainer.setAttribute("disabled", 1);
+                scissorsContainer.setAttribute("disabled", 1);
+                
+            }else{
                 resultsContainer.innerText = `Player score: ${playerScore} Computer score: ${computerScore}`;
             }
             
@@ -92,4 +101,20 @@ function losePosition(roundResult){
     }else{
         return true;
     }
+}
+
+function reset(){
+    playerScore = 0;
+    computerScore = 0;
+
+    const resultsContainer = document.querySelector('.results');
+    const msgContainer = document.querySelector('.message');
+
+    resultsContainer.innerText = "Player Score: 0 Computer Score: 0";
+    msgContainer.innerText = "You can win, draw, or lose a round. The first to five wins!";
+
+    rockContainer.removeAttribute("disabled");  
+    paperContainer.removeAttribute("disabled");  
+    scissorsContainer.removeAttribute("disabled");
+
 }
