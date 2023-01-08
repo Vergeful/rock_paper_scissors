@@ -1,3 +1,5 @@
+window.onload = game();
+
 function getComputerChoice(){
     let choices = ["Rock", "Paper", "Scissors"];
     let choice = choices[Math.floor(Math.random() * choices.length)];
@@ -39,29 +41,39 @@ function playRound(playerSelection, computerSelection){
 function game(){
     let playerScore = 0;
     let computerScore = 0;
-    for (let i = 0; i < 5; i++){
-        let playerSelection = prompt("Enter Rock, Paper, or Scissors:");
-        let computerSelection = getComputerChoice();
-        let roundResult = playRound(playerSelection, computerSelection)
-        let winStatus = winPosition(roundResult);
-        let loseStatus = losePosition(roundResult);
 
-        if (winStatus){
-            playerScore += 1;
-        }else if (loseStatus){
-            computerScore += 1;
-        }
-        console.log(roundResult)
-        console.log(`Player score: ${playerScore} Computer score: ${computerScore}`)
+    const buttons = document.querySelectorAll('button');
 
-        if (i === 4){
-            if (playerScore > computerScore){
-                console.log("Player wins!")
-            }else{
-                console.log("Computer wins")
+    buttons.forEach((button) =>{
+
+        button.addEventListener('click', () => {
+            playerSelection = button.innerText;
+            roundResult = playRound(playerSelection, getComputerChoice());
+            let winStatus = winPosition(roundResult);
+            let loseStatus = losePosition(roundResult);
+
+            if (winStatus){
+                playerScore += 1;
+            }else if (loseStatus){
+                computerScore += 1;
             }
-        }
-    }
+
+            const resultsContainer = document.querySelector('.results');
+            const msgContainer = document.querySelector('.message');
+
+            msgContainer.innerText = roundResult;
+
+            if (computerScore === 5){
+                resultsContainer.innerText = "The computer had beaten you! You are a loser!";
+            } else if (playerScore === 5){
+                resultsContainer.innerText = "You have emerged victorious!";
+            }
+            else{
+                resultsContainer.innerText = `Player score: ${playerScore} Computer score: ${computerScore}`;
+            }
+            
+        });
+    });
 }
 
 function winPosition(roundResult){

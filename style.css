@@ -1,0 +1,33 @@
+body{
+    background-color: rgb(101, 162, 216);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header{
+    font-weight: bold;
+    margin-bottom: 32px;;
+}
+
+.button_container{
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.move{
+    width: 125px;
+    height: 125px;
+    color: black;
+    background-color: rgb(238, 173, 184);
+    font-weight: bold;
+    border-radius: 50%;
+    border: 5px solid black;
+}
+
+.results{
+    margin-top: 32px;
+    padding: 2.5px;
+    font-weight: bold;
+}
